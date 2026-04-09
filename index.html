@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,91 +7,459 @@
   <title>Ficha Digital – Video Documental – CONAMIR</title>
   <style>
     :root{
-      --bg:#f4f7fb; --card:#ffffff; --primary:#1f4e79; --secondary:#2e75b6;
-      --accent:#f2b705; --text:#1f2937; --muted:#6b7280; --border:#dbe3ef; --ok:#0f766e;
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --primary:#1f4e79;
+      --secondary:#2e75b6;
+      --accent:#f2b705;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --border:#dbe3ef;
+      --ok:#0f766e;
+      --wa:#25D366;
+      --wa-dark:#128C7E;
     }
     *{box-sizing:border-box}
-    body{ margin:0; font-family: Arial, sans-serif; background:#f4f7fb; color:var(--text); line-height:1.5; }
-    .wrap{ max-width:980px; margin:24px auto; padding:0 16px; }
-    .hero{ background:linear-gradient(135deg,var(--primary),var(--secondary)); color:#fff; border-radius:22px; padding:28px 22px; }
-    .card{ background:var(--card); border:1px solid var(--border); border-radius:20px; padding:20px; margin-top:18px; }
-    .grid{ display:grid; grid-template-columns:1.15fr .85fr; gap:18px; }
-    .thumb{ width:100%; border-radius:16px; aspect-ratio:16/9; object-fit:cover; background:#dfe8f3; }
-    .info-list{ margin:0; padding:0; list-style:none; }
-    .info-list li{ padding:8px 0; border-bottom:1px dashed var(--border); }
-    label{ font-weight:700; display:block; margin-bottom:6px; }
-    input[type="text"], textarea{ width:100%; border:1.5px solid #c9d5e6; border-radius:12px; padding:12px; font-size:1rem; }
-    .section-title{ margin:0 0 12px; color:var(--primary); font-size:1.2rem; }
-    .question{ border:1px solid var(--border); border-radius:16px; padding:16px; margin:14px 0; background:#fcfdff; }
-    .options{ display:grid; gap:10px; }
-    .option{ display:flex; align-items:flex-start; gap:10px; padding:10px; border:1px solid var(--border); border-radius:12px; cursor: pointer;}
-    .actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
-    button{ border:0; border-radius:12px; padding:12px 20px; font-size:1rem; font-weight:700; cursor:pointer; }
-    .btn-wa{ background:#25D366; color:#fff; }
-    .btn-pdf{ background:#edf4fb; color:var(--primary); border:1px solid var(--border); }
-    @media (max-width: 780px){ .grid{grid-template-columns:1fr} }
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:linear-gradient(180deg,#eef4fb 0%, #f8fbff 100%);
+      color:var(--text);
+      line-height:1.5;
+    }
+    .wrap{
+      max-width:980px;
+      margin:24px auto 40px;
+      padding:0 16px;
+    }
+    .hero{
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      color:#fff;
+      border-radius:22px;
+      padding:28px 22px;
+      box-shadow:0 14px 36px rgba(31,78,121,.18);
+    }
+    .hero h1{
+      margin:0 0 8px;
+      font-size:clamp(1.45rem, 2.3vw, 2.2rem);
+    }
+    .hero p{
+      margin:6px 0;
+      opacity:.96;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:20px;
+      margin-top:18px;
+      box-shadow:0 8px 24px rgba(17,24,39,.06);
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:18px;
+    }
+    .thumb{
+      width:100%;
+      border-radius:16px;
+      border:1px solid var(--border);
+      display:block;
+      aspect-ratio:16/9;
+      object-fit:cover;
+      background:#dfe8f3;
+    }
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+    .gallery img{
+      width:100%;
+      height:140px;
+      object-fit:cover;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:#eef2f7;
+    }
+    .info-list{
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+    .info-list li{
+      padding:8px 0;
+      border-bottom:1px dashed var(--border);
+    }
+    .info-list li:last-child{border-bottom:0}
+    label{
+      font-weight:700;
+      display:block;
+      margin-bottom:6px;
+    }
+    input[type="text"], textarea{
+      width:100%;
+      border:1.5px solid #c9d5e6;
+      border-radius:12px;
+      padding:12px 14px;
+      font-size:1rem;
+      outline:none;
+      background:#fff;
+    }
+    input[type="text"]:focus, textarea:focus{
+      border-color:var(--secondary);
+      box-shadow:0 0 0 3px rgba(46,117,182,.12);
+    }
+    textarea{
+      min-height:92px;
+      resize:vertical;
+    }
+    .section-title{
+      margin:0 0 12px;
+      color:var(--primary);
+      font-size:1.2rem;
+    }
+    .question{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:16px;
+      margin:14px 0;
+      background:#fcfdff;
+    }
+    .question h3{
+      margin:0 0 12px;
+      font-size:1rem;
+    }
+    .options{
+      display:grid;
+      gap:10px;
+    }
+    .option{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#fff;
+      font-weight:400;
+      margin-bottom:0;
+    }
+    .option input{ margin-top:3px; }
+    .muted{color:var(--muted)}
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:16px;
+    }
+    button, .btn{
+      border:0;
+      border-radius:12px;
+      padding:12px 16px;
+      font-size:0.98rem;
+      font-weight:700;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-block;
+    }
+    .primary{
+      background:var(--primary);
+      color:#fff;
+    }
+    .secondary{
+      background:#edf4fb;
+      color:var(--primary);
+      border:1px solid var(--border);
+    }
+    .whatsapp{
+      background:var(--wa);
+      color:#fff;
+    }
+    .whatsapp:hover{
+      background:var(--wa-dark);
+    }
+    .note{
+      font-size:.95rem;
+      color:var(--muted);
+      margin-top:10px;
+    }
+    .success{
+      color:var(--ok);
+      font-weight:700;
+      min-height:1.2em;
+      margin-top:8px;
+    }
+    .footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:.92rem;
+      padding:14px 0 2px;
+    }
+    .student-box{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+    @media (max-width: 780px){
+      .grid{grid-template-columns:1fr}
+      .gallery img{height:120px}
+      .card{padding:16px}
+      .hero{padding:22px 18px}
+    }
+    @media print{
+      body{background:#fff}
+      .wrap{max-width:100%; margin:0; padding:0}
+      .hero{box-shadow:none}
+      .card{box-shadow:none; break-inside:avoid}
+      .actions,.note,.success,.footer{display:none !important}
+      a{color:#000; text-decoration:none}
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <section class="hero">
       <h1>Ficha Digital – Educación para el Trabajo</h1>
+      <p><strong>Institución Educativa:</strong> CONAMIR – Colegio de Rosaspata</p>
+      <p><strong>Grado y sección:</strong> 5.° “A” de Secundaria</p>
       <p><strong>Docente:</strong> Prof. Juan Ramos</p>
       <p><strong>Tema:</strong> Importancia del video documental</p>
     </section>
 
     <section class="card">
       <div class="grid">
-        <img class="thumb" src="https://img.youtube.com/vi/Laj-HgizR-o/hqdefault.jpg" alt="Video">
         <div>
-          <h2 class="section-title">Datos del Estudiante</h2>
-          <label for="nombre">Nombre Completo:</label>
-          <input type="text" id="nombre" placeholder="Ej. Juan Pérez">
-          
-          <div class="actions">
-            <button class="btn-wa" onclick="enviarWhatsApp()">Enviar al Prof. Juan Ramos</button>
-            <button class="btn-pdf" onclick="window.print()">Descargar en PDF</button>
+          <img class="thumb" src="https://img.youtube.com/vi/Laj-HgizR-o/hqdefault.jpg" alt="Miniatura del video de YouTube">
+          <div class="gallery">
+            <img src="https://0701.static.prezi.com/preview/v2/24p6hbz53gcrih43ajnifpti2d6jc3sachvcdoaizecfr3dnitcq_3_0.png" alt="Imagen referencial 1">
+            <img src="https://imagenes.20minutos.es/files/image_640_auto/uploads/imagenes/2020/08/01/john-grierson.jpeg" alt="Imagen referencial 2">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Institut_Lumi%C3%A8re_-_CINEMATOGRAPHE_Camera.jpg" alt="Imagen referencial 3">
+            <img src="https://st.depositphotos.com/1001877/1569/i/450/depositphotos_15693055-stock-photo-vintage-movie-camera-on-white.jpg" alt="Imagen referencial 4">
           </div>
-          <p style="font-size:0.85rem; color:gray; margin-top:10px;">Nota: Al dar clic en enviar, se abrirá tu WhatsApp con las respuestas listas.</p>
+        </div>
+        <div>
+          <h2 class="section-title">Datos del video</h2>
+          <ul class="info-list">
+            <li><strong>Nombre del video:</strong><br>Qué es un documental? Origen, definición y pioneros del documental</li>
+            <li><strong>Enlace:</strong><br><a href="https://www.youtube.com/watch?v=Laj-HgizR-o" target="_blank" rel="noopener">https://www.youtube.com/watch?v=Laj-HgizR-o</a></li>
+            <li><strong>Instrucción:</strong><br>Observa atentamente el video y responde las preguntas. Si no puedes verlo en ese momento, revisa el título, la imagen y recuerda lo trabajado en clase.</li>
+          </ul>
+
+          <div class="student-box">
+            <div>
+              <label for="nombre">Nombre del estudiante</label>
+              <input type="text" id="nombre" placeholder="Escribe tu nombre">
+            </div>
+            <div>
+              <label for="apellido">Apellido del estudiante</label>
+              <input type="text" id="apellido" placeholder="Escribe tus apellidos">
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="primary" onclick="guardarRespuestas()">Guardar en este celular</button>
+            <button class="secondary" onclick="window.print()">Imprimir / Guardar en PDF</button>
+          </div>
+          <div class="success" id="mensaje"></div>
+          <div class="note">Al final encontrarás un botón verde para enviar tus respuestas al WhatsApp del profesor.</div>
         </div>
       </div>
     </section>
 
     <section class="card">
-      <h2 class="section-title">Cuestionario</h2>
+      <h2 class="section-title">Parte I. Preguntas de opción múltiple</h2>
+
       <div class="question">
         <h3>1. ¿Qué es un documental?</h3>
         <div class="options">
-          <label class="option"><input type="radio" name="p1" value="Hechos reales"> Un video basado en hechos reales</label>
-          <label class="option"><input type="radio" name="p1" value="Ficción"> Una historia inventada</label>
+          <label class="option"><input type="radio" name="p1" value="a) Una historia inventada"> a) Una historia inventada</label>
+          <label class="option"><input type="radio" name="p1" value="b) Un video basado en hechos reales"> b) Un video basado en hechos reales</label>
+          <label class="option"><input type="radio" name="p1" value="c) Una película de acción"> c) Una película de acción</label>
         </div>
       </div>
+
+      <div class="question">
+        <h3>2. ¿Cuál es la principal finalidad de un documental?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="p2" value="a) Divertir solamente"> a) Divertir solamente</label>
+          <label class="option"><input type="radio" name="p2" value="b) Informar y mostrar la realidad"> b) Informar y mostrar la realidad</label>
+          <label class="option"><input type="radio" name="p2" value="c) Vender productos"> c) Vender productos</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>3. ¿Qué caracteriza a un documental?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="p3" value="a) Uso de personajes ficticios"> a) Uso de personajes ficticios</label>
+          <label class="option"><input type="radio" name="p3" value="b) Presenta información real y verificable"> b) Presenta información real y verificable</label>
+          <label class="option"><input type="radio" name="p3" value="c) Solo tiene efectos especiales"> c) Solo tiene efectos especiales</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>4. ¿Qué tipo de contenido muestra un documental?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="p4" value="a) Fantasía"> a) Fantasía</label>
+          <label class="option"><input type="radio" name="p4" value="b) Realidad"> b) Realidad</label>
+          <label class="option"><input type="radio" name="p4" value="c) Ciencia ficción"> c) Ciencia ficción</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>5. ¿Por qué son importantes los documentales?</h3>
+        <div class="options">
+          <label class="option"><input type="radio" name="p5" value="a) Porque son cortos"> a) Porque son cortos</label>
+          <label class="option"><input type="radio" name="p5" value="b) Porque ayudan a conservar la historia"> b) Porque ayudan a conservar la historia</label>
+          <label class="option"><input type="radio" name="p5" value="c) Porque son fáciles de hacer"> c) Porque son fáciles de hacer</label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">Parte II. Preguntas de pensamiento crítico</h2>
+
       <div class="question">
         <h3>6. ¿Por qué crees que es importante hacer un documental sobre tu colegio?</h3>
-        <textarea id="p6" placeholder="Escribe tu opinión aquí..."></textarea>
+        <textarea id="p6" placeholder="Escribe una respuesta breve"></textarea>
       </div>
-      <p><em>(He simplificado las preguntas para la prueba, pero puedes copiar todas las del código original aquí)</em></p>
+
+      <div class="question">
+        <h3>7. ¿Qué pasaría si no se registrara la historia del colegio?</h3>
+        <textarea id="p7" placeholder="Escribe una respuesta breve"></textarea>
+      </div>
+
+      <div class="question">
+        <h3>8. ¿Qué mensaje te gustaría transmitir en el documental de las bodas de oro del colegio?</h3>
+        <textarea id="p8" placeholder="Escribe una respuesta breve"></textarea>
+      </div>
+
+      <div class="question">
+        <h3>9. ¿Qué aspectos del colegio consideras más importantes para incluir en el documental?</h3>
+        <textarea id="p9" placeholder="Escribe una respuesta breve"></textarea>
+      </div>
+
+      <div class="question">
+        <h3>10. ¿Cómo puede un documental generar identidad y orgullo en los estudiantes?</h3>
+        <textarea id="p10" placeholder="Escribe una respuesta breve"></textarea>
+      </div>
+
+      <div class="question">
+        <h3>Reflexión final</h3>
+        <p class="muted">El documental no solo es un video, es una forma de preservar la historia, transmitir valores y fortalecer la identidad de una institución.</p>
+      </div>
+
+      <div class="actions">
+        <button class="whatsapp" onclick="enviarWhatsApp()">Enviar al WhatsApp del profesor Juan Ramos</button>
+      </div>
+      <div class="note">Este botón abrirá WhatsApp con todas tus respuestas listas para enviar al profesor.</div>
     </section>
+
+    <div class="footer">
+      Ficha digital elaborada para CONAMIR – Colegio de Rosaspata
+    </div>
   </div>
 
   <script>
-    function enviarWhatsApp() {
-      const nombre = document.getElementById("nombre").value;
-      if (!nombre) return alert("Por favor, ingresa tu nombre.");
-
-      // Captura de respuestas
-      const r1 = document.querySelector('input[name="p1"]:checked')?.value || "No respondida";
-      const r6 = document.getElementById("p6").value || "No respondida";
-
-      const texto = `*FICHA DIGITAL - CONAMIR*%0A` +
-                    `*Estudiante:* ${nombre}%0A%0A` +
-                    `*1. ¿Qué es un documental?*%0AR: ${r1}%0A%0A` +
-                    `*6. Importancia del documental escolar:*%0A${r6}`;
-
-      // Enlace directo a tu número en Perú
-      const url = `https://wa.me/51900973658?text=${texto}`;
-      window.open(url, '_blank');
+    function obtenerSeleccion(name){
+      const sel = document.querySelector('input[name="' + name + '"]:checked');
+      return sel ? sel.value : "No respondió";
     }
+
+    function guardarRespuestas(){
+      const data = {
+        nombre: document.getElementById("nombre").value,
+        apellido: document.getElementById("apellido").value,
+        p1: obtenerSeleccion("p1"),
+        p2: obtenerSeleccion("p2"),
+        p3: obtenerSeleccion("p3"),
+        p4: obtenerSeleccion("p4"),
+        p5: obtenerSeleccion("p5"),
+        p6: document.getElementById("p6").value,
+        p7: document.getElementById("p7").value,
+        p8: document.getElementById("p8").value,
+        p9: document.getElementById("p9").value,
+        p10: document.getElementById("p10").value
+      };
+      localStorage.setItem("ficha_conamir_documental", JSON.stringify(data));
+      document.getElementById("mensaje").textContent = "Respuestas guardadas correctamente en este celular.";
+    }
+
+    function cargarRespuestas(){
+      const raw = localStorage.getItem("ficha_conamir_documental");
+      if(!raw) return;
+      try{
+        const data = JSON.parse(raw);
+        document.getElementById("nombre").value = data.nombre || "";
+        document.getElementById("apellido").value = data.apellido || "";
+        const radios = ["p1","p2","p3","p4","p5"];
+        radios.forEach(function(p){
+          if(data[p]){
+            const list = document.querySelectorAll('input[name="' + p + '"]');
+            list.forEach(function(el){
+              if(el.value === data[p]) el.checked = true;
+            });
+          }
+        });
+        ["p6","p7","p8","p9","p10"].forEach(function(p){
+          const el = document.getElementById(p);
+          if(el) el.value = data[p] || "";
+        });
+      }catch(e){}
+    }
+
+    function enviarWhatsApp(){
+      const nombre = document.getElementById("nombre").value.trim();
+      const apellido = document.getElementById("apellido").value.trim();
+
+      if(!nombre || !apellido){
+        alert("Por favor, escribe tu nombre y apellido antes de enviar.");
+        return;
+      }
+
+      const mensaje =
+"Ficha Digital - CONAMIR\n" +
+"Área: Educación para el Trabajo\n" +
+"Estudiante: " + nombre + " " + apellido + "\n\n" +
+
+"1. ¿Qué es un documental?\n" +
+"Respuesta: " + obtenerSeleccion("p1") + "\n\n" +
+
+"2. ¿Cuál es la principal finalidad de un documental?\n" +
+"Respuesta: " + obtenerSeleccion("p2") + "\n\n" +
+
+"3. ¿Qué caracteriza a un documental?\n" +
+"Respuesta: " + obtenerSeleccion("p3") + "\n\n" +
+
+"4. ¿Qué tipo de contenido muestra un documental?\n" +
+"Respuesta: " + obtenerSeleccion("p4") + "\n\n" +
+
+"5. ¿Por qué son importantes los documentales?\n" +
+"Respuesta: " + obtenerSeleccion("p5") + "\n\n" +
+
+"6. ¿Por qué crees que es importante hacer un documental sobre tu colegio?\n" +
+"Respuesta: " + (document.getElementById("p6").value.trim() || "No respondió") + "\n\n" +
+
+"7. ¿Qué pasaría si no se registrara la historia del colegio?\n" +
+"Respuesta: " + (document.getElementById("p7").value.trim() || "No respondió") + "\n\n" +
+
+"8. ¿Qué mensaje te gustaría transmitir en el documental de las bodas de oro del colegio?\n" +
+"Respuesta: " + (document.getElementById("p8").value.trim() || "No respondió") + "\n\n" +
+
+"9. ¿Qué aspectos del colegio consideras más importantes para incluir en el documental?\n" +
+"Respuesta: " + (document.getElementById("p9").value.trim() || "No respondió") + "\n\n" +
+
+"10. ¿Cómo puede un documental generar identidad y orgullo en los estudiantes?\n" +
+"Respuesta: " + (document.getElementById("p10").value.trim() || "No respondió");
+
+      const numero = "51900973658";
+      const url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensaje);
+      window.open(url, "_blank");
+    }
+
+    cargarRespuestas();
   </script>
 </body>
 </html>
